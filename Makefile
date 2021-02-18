@@ -12,7 +12,7 @@ help: ## This help
 
 up: ## Launch all project's dockers
 	@cd $(DOCKER_CONFIG) && docker-compose up -d
-	@docker exec -uwww-data -it $(APP_NAME)_php bash -c "yarn encore dev"
+	@docker exec -uwww-data -it $(APP_NAME)_php bash -c "composer install && yarn install && yarn encore dev"
 
 stop: ## Stop all project's running dockers
 	@cd $(DOCKER_CONFIG) && docker-compose stop
@@ -41,4 +41,9 @@ nginx: ## Access to php docker
 
 test: ## Execute unit test
 	@docker exec -uwww-data -it $(APP_NAME)_php bash -c "php bin/phpunit"
+
+lets-rock: build up
+	@xdg-open http://localhost:8081/euromillions
+	make test
+
 
