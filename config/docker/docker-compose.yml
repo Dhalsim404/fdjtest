@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  fdj_php:
+    build: ./php
+    image: ${APP_NAME}/php
+    container_name: ${APP_NAME}_php
+    hostname: ${APP_NAME}_php
+    ports:
+      - "9000"
+    volumes:
+      - ${APP_DIR}:/var/www/
+
+  fdj_nginx:
+    build: ./nginx
+    image: ${APP_NAME}/nginx
+    container_name: ${APP_NAME}_nginx
+    hostname: ${APP_NAME}_nginx
+    depends_on:
+      - fdj_php
+    ports:
+      - "8081:80"
+    volumes:
+      - ${APP_DIR}:/var/www/
+    command: [nginx, '-g', 'daemon off;']

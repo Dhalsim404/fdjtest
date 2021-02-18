@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultat de l'EuroMillions{% endblock %}
+
+{% block body %}
+
+<section class="result-bloc">
+    {% if result is defined and result is not empty %}
+        <div class="result-head-bloc">
+            <div class="aside-logo"><img src="img/fdj_logo.jpg" alt="FDJ-EuroMillions-logo"/></div>
+            <div class="result-head-title">
+                <h1>Tirage du {{ result.date|lower }}</h1>
+                <div>Résultats EuroMillions - My Million</div>
+            </div>
+        </div>
+
+        <div class="result">
+            {% for number in result.numbers %}
+                <div class="result-{{ number.type }}">{{ number.value }}</div>
+            {% endfor %}
+            <div class="result-combinaison"><span class="my-million-span">My Million</span> {{ result.combinaison }}</div>
+        </div>
+    {% else %}
+        Résultats indisponible veuillez essayer ultérieurement
+    {% endif %}
+</section>
+{% endblock %}
